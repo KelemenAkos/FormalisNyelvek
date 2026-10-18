@@ -10,36 +10,43 @@ class DFA(Problem):
 
     def run(self, args):
         with open(args.input, 'r') as file:
-            lines = file.readlines()
+            lines = [line.strip() for line in file if line.strip()]
 
-        states = lines[0].strip().split()
-        alphabet = lines[1].strip().split()
-        start_state = lines[2].strip()
-        final_states = lines[3].strip().split()
+        states = lines[0].split()
+        alphabet = lines[1].split()
+        start_state = lines[2]
+        final_states = lines[3].split()
 
         transitions = {}
 
         for line in lines[4:]:
-            parts = line.strip().split()
+            parts = line.split()
+            if len(parts) == 3:
+                from_state, symbol, to_state = parts
+                transitions[(from_state, symbol)] = to_state
 
-            from_state = parts[0]
-            symbol = parts[1]
-            to_state = parts[2]
-
-            transitions[(from_state, symbol)] = to_state
-
-        words = args.check.split(',')
+        # Több szó kezelése (vesszővel elválasztva)
+        words = args.check.split(',') if args.check else []
 
         results = []
 
         for word in words:
-
             current_state = start_state
+            is_rejected = False
 
             for symbol in word:
-                current_state = transitions[(current_state, symbol)]
+                # Ellenőrizzük, hogy létezik-e az átmenet
+                if (current_state, symbol) in transitions:
+                    current_state = transitions[(current_state, symbol)]
+                else:
+                    # Ha nincs átmenet vagy ismeretlen a szimbólum, a szót elutasítjuk
+                    is_rejected = True
+                    break
 
-            if current_state in final_states:
+            # Ha megszakadt az átmenet hiánya miatt, NEM
+            if is_rejected:
+                results.append("NEM")
+            elif current_state in final_states:
                 results.append("IGEN")
             else:
                 results.append("NEM")
