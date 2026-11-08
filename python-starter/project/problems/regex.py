@@ -1,6 +1,6 @@
 from project.problem import Problem
 
-class RegexProblem(Problem):
+class Regexes(Problem):
 
     def initialize_parser(self, parser):
         parser.add_argument('--rgx', type=str)
