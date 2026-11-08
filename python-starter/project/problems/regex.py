@@ -9,4 +9,10 @@ class Regexes(Problem):
         return args.rgx is not None
 
     def run(self, args):
-        pass
+        with open(args.input, 'r') as f:
+            content = f.read()
+
+        result = ""
+
+        with open(args.output, 'w') as f:
+            f.write(result)
