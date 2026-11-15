@@ -1,7 +1,7 @@
 import re
 from project.problem import Problem
 
-class regexek(Problem):
+class Regexes(Problem):
 
     def initialize_parser(self, parser):
         parser.add_argument('--rgx', type=int)
