@@ -39,11 +39,11 @@ class Regexes(Problem):
                 # 7. osszes warning (W) amit a PackageManager kuld
                 re.compile(r'^[0-9-]+\s+[0-9:.]+\s+[0-9]+\s+[0-9]+\s+W\s+PackageManager\s*:'),
                 # 8. osszes ExoPlayer-es debug (D) info
-                re.compile(r'^[0-9-]+\s+[0-9:.]+\s+[0-9]+\s+[0-9]+\s+D\s+ExoPlayer[^:]*:'),
+                re.compile(r'^[0-9-]+\s+[0-9:.]+\s+[0-9]+\s+[0-9]+\s+D\s+.*exoplayer', re.IGNORECASE),
                 # 9. osszes java allomany poziciot tartalmazo hiba es warning (E/W ... .java:)
-                re.compile(r'^[0-9-]+\s+[0-9:.]+\s+[0-9]+\s+[0-9]+\s+[EW]\s+.*\.[jJ][aA][vV][aA]:[0-9]+'),
+                re.compile(r'^[0-9-]+\s+[0-9:.]+\s+[0-9]+\s+[0-9]+\s+[EW]\s+.*\.java:'),
                 # 10. tartalmazza a Thread szot a message reszben (nem a tagben)
-                re.compile(r'^[0-9-]+\s+[0-9:.]+\s+[0-9]+\s+[0-9]+\s+[IDVEFAW]\s+[^:]+:\s*.*\bThread\b')
+                re.compile(r'^[0-9-]+\s+[0-9:.]+\s+[0-9]+\s+[0-9]+\s+[IDVEFAW]\s+[^:]+:\s*.*Thread')
             ]
 
             for pattern in patterns:
